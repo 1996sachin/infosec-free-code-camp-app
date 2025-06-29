@@ -4,10 +4,13 @@ const helmet = require('helmet');
 const app = express();
 const api = require('./server.js');
 
-// Use helmet to set secure HTTP headers
+// Use helmet to set various security-related HTTP headers
 app.use(helmet());
 
-// Serve static files from 'public' folder
+// Hide the X-Powered-By header
+app.use(helmet.hidePoweredBy());
+
+// Serve static files from 'public' directory
 app.use(express.static('public'));
 
 // Mount your API routes under /_api
@@ -26,5 +29,5 @@ app.listen(port, () => {
   console.log(`Useful Programmer Info Security App started on port ${port}`);
 });
 
-// Export the app (if needed for testing or external use)
+// Export the app (for testing or external use)
 module.exports = app;
